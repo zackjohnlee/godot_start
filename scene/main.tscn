@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjurnfvjjyy0b"]
+
+[ext_resource type="PackedScene" uid="uid://cgv8jma0qjvj4" path="res://scene/player.tscn" id="1_ewkcp"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_l0mx8"]
+[ext_resource type="Texture2D" uid="uid://dq70qw7i41xys" path="res://assets/small_grass.png" id="2_ry8yf"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="2_tyjwi"]
+[ext_resource type="Texture2D" uid="uid://0jxtydgjs5jx" path="res://assets/rock.png" id="5_ih626"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66ul3"]
+texture = ExtResource("2_ry8yf")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_sauc5"]
+sources/0 = SubResource("TileSetAtlasSource_66ul3")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvn3g"]
+radius = 9.0
+height = 56.8623
+
+[node name="main" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_l0mx8")
+
+[node name="player" parent="." instance=ExtResource("1_ewkcp")]
+SPEED = 200.0
+
+[node name="grass" type="TileMap" parent="."]
+texture_filter = 1
+tile_set = SubResource("TileSet_sauc5")
+cell_quadrant_size = 8
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(581, 317)
+script = ExtResource("2_tyjwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(773, 433)
+texture = ExtResource("5_ih626")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+position = Vector2(1, 19)
+rotation = -1.47928
+shape = SubResource("CapsuleShape2D_uvn3g")
+one_way_collision = true
